@@ -19,7 +19,6 @@ spec:
       project: default
       source:
         repoURL: https://github.com/mixxor/gitops-applicationset-example.git
-
         targetRevision: HEAD
         path: '{{path}}'
       destination:
