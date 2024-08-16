@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: prod-kustomize-apps
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/mixxor/gitops-applicationset-example.git
+
+      revision: HEAD
+      directories:
+      - path: "*/overlays/prod"
+  template:
+    metadata:
+      name: '{{path.segment.0}}-prod'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/mixxor/gitops-applicationset-example.git
+
+        targetRevision: HEAD
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{path.segment.0}}-prod'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
