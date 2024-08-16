@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-applicationset-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/mixxor/gitops-applicationset-example.git
+    targetRevision: HEAD
+    path: applicationsets
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
