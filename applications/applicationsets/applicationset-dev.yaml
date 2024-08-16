@@ -2,7 +2,8 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: dev-kustomize-apps
-  namespace: argocd
+  namespace: argo-cd
+
 spec:
   generators:
   - git:
@@ -18,7 +19,6 @@ spec:
       project: default
       source:
         repoURL: https://github.com/mixxor/gitops-applicationset-example.git
-
         targetRevision: HEAD
         path: '{{path}}'
       destination:

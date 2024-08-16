@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: my-applicationset-app
-  namespace: argocd
+  namespace: argo-cd
 spec:
   project: default
   source:
@@ -11,8 +11,7 @@ spec:
     path: applicationsets
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+    namespace: argo-cd
+  SyncPolicy:
+    syncOptions:
+    - CreateNamespace=true
