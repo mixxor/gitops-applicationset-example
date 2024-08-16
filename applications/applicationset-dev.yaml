@@ -2,6 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: dev-kustomize-apps
+  namespace: argocd
 spec:
   generators:
   - git:
@@ -23,7 +24,6 @@ spec:
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{path.segment.0}}-dev'
-      syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+      SyncPolicy:
+        syncOptions:
+        - CreateNamespace=true
